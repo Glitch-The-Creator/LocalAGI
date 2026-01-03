@@ -11,7 +11,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/mudler/LocalAGI)](https://github.com/mudler/LocalAGI/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/mudler/LocalAGI)](https://github.com/mudler/LocalAGI/issues)
 
-
 Try on [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/LocalAGI_bot)
 
 </div>
@@ -44,6 +43,22 @@ LocalAGI ensures your data stays exactly where you want it—on your hardware. N
 
 ## 🛠️ Quickstart
 
+### Enable Claude Sonnet 4.5 for All Clients
+
+Set these environment variables before starting LocalAGI:
+
+```
+export LOCALAGI_MODEL="claude-3-sonnet-4.5"
+export LOCALAGI_LLM_API_URL="http://localhost:YOUR_CLAUDE_DESKTOP_PORT"
+export LOCALAGI_LLM_API_KEY="YOUR_CLAUDE_API_KEY"
+```
+
+Replace `YOUR_CLAUDE_DESKTOP_PORT` and `YOUR_CLAUDE_API_KEY` with your actual values.
+
+This will route all LLM requests to Claude Sonnet 4.5 via your Claude desktop installation.
+
+For advanced options, see `main.go` for all supported environment variables.
+
 ```bash
 # Clone the repository
 git clone https://github.com/mudler/LocalAGI
@@ -73,7 +88,7 @@ docker compose -f docker-compose.nvidia.yaml up
 
 Now you can access and manage your agents at [http://localhost:8080](http://localhost:8080)
 
-Still having issues? see this Youtube video: https://youtu.be/HtVwIxW3ePg
+Still having issues? see this Youtube video: <https://youtu.be/HtVwIxW3ePg>
 
 ## Videos
 
@@ -81,7 +96,6 @@ Still having issues? see this Youtube video: https://youtu.be/HtVwIxW3ePg
 [![Agent Observability](https://img.youtube.com/vi/v82rswGJt_M/mqdefault.jpg)](https://youtu.be/v82rswGJt_M)
 [![Filters and Triggers](https://img.youtube.com/vi/d_we-AYksSw/mqdefault.jpg)](https://youtu.be/d_we-AYksSw)
 [![RAG and Matrix](https://img.youtube.com/vi/2Xvx78i5oBs/mqdefault.jpg)](https://youtu.be/2Xvx78i5oBs)
-
 
 ## 📚🆕 Local Stack Family
 
@@ -117,12 +131,14 @@ Still having issues? see this Youtube video: https://youtu.be/HtVwIxW3ePg
 LocalAGI supports multiple hardware configurations through Docker Compose profiles:
 
 ### CPU (Default)
+
 - No special configuration needed
 - Runs on any system with Docker
 - Best for testing and development
 - Supports text models only
 
 ### NVIDIA GPU
+
 - Requires NVIDIA GPU and drivers
 - Uses CUDA for acceleration
 - Best for high-performance inference
@@ -139,6 +155,7 @@ LocalAGI supports multiple hardware configurations through Docker Compose profil
   - `LOCALAI_SINGLE_ACTIVE_BACKEND`: Set to `true` to enable single active backend mode
 
 ### Intel GPU
+
 - Supports Intel Arc and integrated GPUs
 - Uses SYCL for acceleration
 - Best for Intel-based systems
@@ -179,6 +196,7 @@ LOCALAGI_CUSTOM_ACTIONS_DIR=/app/custom-actions docker compose up
 ```
 
 If no models are specified, it will use the defaults:
+
 - Text model: `gemma-3-4b-it-qat`
 - Multimodal model: `moondream2-20250414`
 - Image model: `sd-1.5-ggml`
@@ -206,7 +224,6 @@ Good (relatively small) models that have been tested are:
 ![Web UI Create Group](https://github.com/user-attachments/assets/102189a2-0fba-4a1e-b0cb-f99268ef8062)
 ![Web UI Agent Observability](https://github.com/user-attachments/assets/f7359048-9d28-4cf1-9151-1f5556ce9235)
 
-
 ### Connectors Ready-to-Go
 
 <p align="center">
@@ -220,6 +237,7 @@ Good (relatively small) models that have been tested are:
 ## 📖 Full Documentation
 
 Explore detailed documentation including:
+
 - [Installation Options](#installation-options)
 - [REST API Documentation](#rest-api)
 - [Connector Configuration](#connectors)
@@ -251,6 +269,7 @@ Download ready-to-run binaries from the [Releases](https://github.com/mudler/Loc
 ### Source Build
 
 Requirements:
+
 - Go 1.20+
 - Git
 - Bun 1.2+
@@ -317,6 +336,7 @@ agent.Stop()
 ```
 
 This basic example shows how to:
+
 - Create a single agent with essential configuration
 - Set up the agent's model and API connection
 - Configure basic features like knowledge base and reasoning
@@ -433,6 +453,7 @@ LocalAGI supports custom actions written in Go that can be defined inline when c
 You can also place custom Go action files in a directory and have LocalAGI automatically load them. Set the `LOCALAGI_CUSTOM_ACTIONS_DIR` environment variable to point to a directory containing your custom action files. Each `.go` file in this directory will be automatically loaded and made available to all agents.
 
 **Example setup:**
+
 ```bash
 # Set the environment variable
 export LOCALAGI_CUSTOM_ACTIONS_DIR="/path/to/custom/actions"
@@ -443,6 +464,7 @@ environment:
 ```
 
 **Directory structure:**
+
 ```
 custom-actions/
 ├── weather_action.go
@@ -754,6 +776,7 @@ Link your agents to the services you already use. Configuration examples below.
   "botUserName": "bot-username"
 }
 ```
+
 </details>
 
 <details>
@@ -767,6 +790,7 @@ After [creating your Discord bot](https://discordpy.readthedocs.io/en/stable/dis
   "defaultChannel": "OPTIONAL_CHANNEL_ID"
 }
 ```
+
 > Don't forget to enable "Message Content Intent" in Bot(tab) settings!
 > Enable " Message Content Intent " in the Bot tab!
 </details>
@@ -785,6 +809,7 @@ Use the included `slack.yaml` manifest to create your app, then configure:
 
 - Create Oauth token bot token from "OAuth & Permissions" -> "OAuth Tokens for Your Workspace"
 - Create App level token (from "Basic Information" -> "App-Level Tokens" ( scope connections:writeRoute authorizations:read ))
+
 </details>
 
 <details>
@@ -802,6 +827,7 @@ Get a token from @botfather, then:
 ```
 
 Configuration options:
+
 - `token`: Your bot token from BotFather
 - `group_mode`: Enable/disable group chat functionality
 - `mention_only`: When enabled, bot only responds when mentioned in groups
@@ -809,11 +835,13 @@ Configuration options:
 - `channel_id`: Optional channel ID for the bot to send messages to
 
 > **Important**: For group functionality to work properly:
+>
 > 1. Go to @BotFather
 > 2. Select your bot
 > 3. Go to "Bot Settings" > "Group Privacy"
 > 4. Select "Turn off" to allow the bot to read all messages in groups
 > 5. Restart your bot after changing this setting
+>
 </details>
 
 <details>
@@ -830,6 +858,7 @@ Connect to IRC networks:
   "alwaysReply": "false"
 }
 ```
+
 </details>
 
 <details>
@@ -847,6 +876,7 @@ Connect to IRC networks:
   "name": "LogalAGI Agent"
 }
 ```
+
 </details>
 
 ## REST API
@@ -867,6 +897,7 @@ Connect to IRC networks:
 | `/api/meta/agent/config` | GET | Get agent configuration metadata | |
 | `/settings/export/:name` | GET | Export agent config | [Example](#export-agent) |
 | `/settings/import` | POST | Import agent config | [Example](#import-agent) |
+
 </details>
 
 <details>
@@ -878,6 +909,7 @@ Connect to IRC networks:
 | `/api/action/:name/run` | POST | Execute an action | |
 | `/api/agent/group/generateProfiles` | POST | Generate group profiles | |
 | `/api/agent/group/create` | POST | Create a new agent group | |
+
 </details>
 
 <details>
@@ -889,22 +921,26 @@ Connect to IRC networks:
 | `/api/notify/:name` | POST | Send notification to agent | [Example](#notify-agent) |
 | `/api/sse/:name` | GET | Real-time agent event stream | [Example](#agent-sse-stream) |
 | `/v1/responses` | POST | Send message & get response | [OpenAI's Responses](https://platform.openai.com/docs/api-reference/responses/create) |
+
 </details>
 
 <details>
 <summary><strong>Curl Examples</strong></summary>
 
 #### Get All Agents
+
 ```bash
 curl -X GET "http://localhost:3000/api/agents"
 ```
 
 #### Get Agent Status
+
 ```bash
 curl -X GET "http://localhost:3000/api/agent/my-agent/status"
 ```
 
 #### Create Agent
+
 ```bash
 curl -X POST "http://localhost:3000/api/agent/create" \
   -H "Content-Type: application/json" \
@@ -918,26 +954,31 @@ curl -X POST "http://localhost:3000/api/agent/create" \
 ```
 
 #### Delete Agent
+
 ```bash
 curl -X DELETE "http://localhost:3000/api/agent/my-agent"
 ```
 
 #### Pause Agent
+
 ```bash
 curl -X PUT "http://localhost:3000/api/agent/my-agent/pause"
 ```
 
 #### Start Agent
+
 ```bash
 curl -X PUT "http://localhost:3000/api/agent/my-agent/start"
 ```
 
 #### Get Agent Configuration
+
 ```bash
 curl -X GET "http://localhost:3000/api/agent/my-agent/config"
 ```
 
 #### Update Agent Configuration
+
 ```bash
 curl -X PUT "http://localhost:3000/api/agent/my-agent/config" \
   -H "Content-Type: application/json" \
@@ -948,17 +989,20 @@ curl -X PUT "http://localhost:3000/api/agent/my-agent/config" \
 ```
 
 #### Export Agent
+
 ```bash
 curl -X GET "http://localhost:3000/settings/export/my-agent" --output my-agent.json
 ```
 
 #### Import Agent
+
 ```bash
 curl -X POST "http://localhost:3000/settings/import" \
   -F "file=@/path/to/my-agent.json"
 ```
 
 #### Send Message
+
 ```bash
 curl -X POST "http://localhost:3000/api/chat/my-agent" \
   -H "Content-Type: application/json" \
@@ -966,6 +1010,7 @@ curl -X POST "http://localhost:3000/api/chat/my-agent" \
 ```
 
 #### Notify Agent
+
 ```bash
 curl -X POST "http://localhost:3000/api/notify/my-agent" \
   -H "Content-Type: application/json" \
@@ -973,9 +1018,11 @@ curl -X POST "http://localhost:3000/api/notify/my-agent" \
 ```
 
 #### Agent SSE Stream
+
 ```bash
 curl -N -X GET "http://localhost:3000/api/sse/my-agent"
 ```
+
 Note: For proper SSE handling, you should use a client that supports SSE natively.
 </details>
 
@@ -1016,6 +1063,7 @@ Here's an example of the agent configuration structure:
   "summary_long_term_memory": false
 }
 ```
+
 </details>
 
 <details>
@@ -1036,6 +1084,7 @@ LocalAGI supports environment configurations. Note that these environment variab
 | `LOCALAGI_ENABLE_CONVERSATIONS_LOGGING` | Toggle conversation logs |
 | `LOCALAGI_API_KEYS` | A comma separated list of api keys used for authentication |
 | `LOCALAGI_CUSTOM_ACTIONS_DIR` | Directory containing custom Go action files to be automatically loaded |
+
 </details>
 
 ## LICENSE
