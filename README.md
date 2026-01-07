@@ -1,3 +1,12 @@
+
+> **Maintainers Note (January 4, 2026):**
+>
+> This README was last reviewed and updated on January 4, 2026. If you are reading this, please:
+> - Review all instructions and examples for accuracy and relevance.
+> - Update any outdated links, model names, or environment variable references.
+> - Ensure new features or changes are documented clearly for others who come after you.
+> - Keep this note updated with the latest review date.
+
 <p align="center">
   <img src="./webui/react-ui/public/logo_1.png" alt="LocalAGI Logo" width="220"/>
 </p>
@@ -86,7 +95,7 @@ IMAGE_MODEL=flux.1-dev-ggml \
 docker compose -f docker-compose.nvidia.yaml up
 ```
 
-Now you can access and manage your agents at [http://localhost:8080](http://localhost:8080)
+Now you can access and manage your agents at [http://localhost:3001](http://localhost:3001)
 
 Still having issues? see this Youtube video: <https://youtu.be/HtVwIxW3ePg>
 
@@ -304,7 +313,7 @@ import (
 // Create a new agent with basic configuration
 agent, err := agent.New(
     agent.WithModel("gpt-4"),
-    agent.WithLLMAPIURL("http://localhost:8080"),
+    agent.WithLLMAPIURL("http://localhost:3001"),
     agent.WithLLMAPIKey("your-api-key"),
     agent.WithSystemPrompt("You are a helpful assistant."),
     agent.WithCharacter(agent.Character{
@@ -360,7 +369,7 @@ pool, err := state.NewAgentPool(
     "default-model",           // default model name
     "default-multimodal-model", // default multimodal model
     "image-model",            // image generation model
-    "http://localhost:8080",  // API URL
+    "http://localhost:3001",  // API URL
     "your-api-key",          // API key
     "./state",               // state directory
     "http://localhost:8081", // LocalRAG API URL
@@ -930,19 +939,19 @@ Connect to IRC networks:
 #### Get All Agents
 
 ```bash
-curl -X GET "http://localhost:3000/api/agents"
+curl -X GET "http://localhost:3001/api/agents"
 ```
 
 #### Get Agent Status
 
 ```bash
-curl -X GET "http://localhost:3000/api/agent/my-agent/status"
+curl -X GET "http://localhost:3001/api/agent/my-agent/status"
 ```
 
 #### Create Agent
 
 ```bash
-curl -X POST "http://localhost:3000/api/agent/create" \
+curl -X POST "http://localhost:3001/api/agent/create" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my-agent",
@@ -956,31 +965,31 @@ curl -X POST "http://localhost:3000/api/agent/create" \
 #### Delete Agent
 
 ```bash
-curl -X DELETE "http://localhost:3000/api/agent/my-agent"
+curl -X DELETE "http://localhost:3001/api/agent/my-agent"
 ```
 
 #### Pause Agent
 
 ```bash
-curl -X PUT "http://localhost:3000/api/agent/my-agent/pause"
+curl -X PUT "http://localhost:3001/api/agent/my-agent/pause"
 ```
 
 #### Start Agent
 
 ```bash
-curl -X PUT "http://localhost:3000/api/agent/my-agent/start"
+curl -X PUT "http://localhost:3001/api/agent/my-agent/start"
 ```
 
 #### Get Agent Configuration
 
 ```bash
-curl -X GET "http://localhost:3000/api/agent/my-agent/config"
+curl -X GET "http://localhost:3001/api/agent/my-agent/config"
 ```
 
 #### Update Agent Configuration
 
 ```bash
-curl -X PUT "http://localhost:3000/api/agent/my-agent/config" \
+curl -X PUT "http://localhost:3001/api/agent/my-agent/config" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-4",
@@ -991,20 +1000,20 @@ curl -X PUT "http://localhost:3000/api/agent/my-agent/config" \
 #### Export Agent
 
 ```bash
-curl -X GET "http://localhost:3000/settings/export/my-agent" --output my-agent.json
+curl -X GET "http://localhost:3001/settings/export/my-agent" --output my-agent.json
 ```
 
 #### Import Agent
 
 ```bash
-curl -X POST "http://localhost:3000/settings/import" \
+curl -X POST "http://localhost:3001/settings/import" \
   -F "file=@/path/to/my-agent.json"
 ```
 
 #### Send Message
 
 ```bash
-curl -X POST "http://localhost:3000/api/chat/my-agent" \
+curl -X POST "http://localhost:3001/api/chat/my-agent" \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello, how are you today?"}'
 ```
@@ -1012,7 +1021,7 @@ curl -X POST "http://localhost:3000/api/chat/my-agent" \
 #### Notify Agent
 
 ```bash
-curl -X POST "http://localhost:3000/api/notify/my-agent" \
+curl -X POST "http://localhost:3001/api/notify/my-agent" \
   -H "Content-Type: application/json" \
   -d '{"message": "Important notification"}'
 ```
@@ -1020,7 +1029,7 @@ curl -X POST "http://localhost:3000/api/notify/my-agent" \
 #### Agent SSE Stream
 
 ```bash
-curl -N -X GET "http://localhost:3000/api/sse/my-agent"
+curl -N -X GET "http://localhost:3001/api/sse/my-agent"
 ```
 
 Note: For proper SSE handling, you should use a client that supports SSE natively.
@@ -1034,7 +1043,7 @@ Note: For proper SSE handling, you should use a client that supports SSE nativel
 The agent configuration defines how an agent behaves and what capabilities it has. You can view the available configuration options and their descriptions by using the metadata endpoint:
 
 ```bash
-curl -X GET "http://localhost:3000/api/meta/agent/config"
+curl -X GET "http://localhost:3001/api/meta/agent/config"
 ```
 
 This will return a JSON object containing all available configuration fields, their types, and descriptions.
